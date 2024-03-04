@@ -1,6 +1,15 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using UrfuAPI;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("UrfuBaseConnectionString") ?? throw new InvalidOperationException("Connection string 'JournalContextConnection' not found.");
+
+        builder.Services.AddDbContext<UrfuBaseContext>(options =>{
+            options.UseSqlServer(connectionString);
+            options.EnableSensitiveDataLogging();
+        }).AddTransient<UrfuBaseContext>();
 
 // Add services to the container.
 
