@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using UrfuAPI;
+using UrfuAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "UrfuAPI", Version = "v1" });
         });
+
+builder.Services.InitializeServices();
 
 var app = builder.Build();
 
