@@ -1,5 +1,7 @@
-файл appsettings.json: изменить UrfuDbConnectionString на свою строку подключения
+файл appsettings.json: 
+изменить UrfuDbConnectionString на свою строку подключения
 удалить папку "Migrations"
+
 В терминале:
 dotnet ef migrations add CreateTableArticles
 dotnet ef database update
