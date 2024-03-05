@@ -4,7 +4,7 @@ using UrfuAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("UrfuBaseConnectionString") ?? throw new InvalidOperationException("Connection string 'JournalContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("UrfuDbConnectionString") ?? throw new InvalidOperationException("Connection string 'UrfuDbConnectionString' not found.");
 
         builder.Services.AddDbContext<UrfuBaseContext>(options =>{
             options.UseSqlServer(connectionString);
