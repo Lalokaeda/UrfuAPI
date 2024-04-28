@@ -3,6 +3,8 @@ using Microsoft.OpenApi.Models;
 using UrfuAPI;
 using UrfuAPI.Services;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("UrfuDbConnectionString") ?? throw new InvalidOperationException("Connection string 'UrfuDbConnectionString' not found.");
@@ -16,7 +18,20 @@ var connectionString = builder.Configuration.GetConnectionString("UrfuDbConnecti
 
 builder.Services.AddControllers();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+//Тут адрес менять
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins,
+                          policy =>
+                          {
+                              policy.WithOrigins("http://194.87.102.61:7243",
+                                                  "http://www.contoso.com")
+                                                  .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                          });
+});
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
         {
@@ -35,6 +50,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
